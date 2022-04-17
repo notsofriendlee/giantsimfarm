@@ -128,7 +128,8 @@ getgenv().mainLoop = stepped:Connect(function()
     if massupgradecheck == false then return end;
     if massupgradecheck == true then
         game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.GameService.MassUpgradeSkills:InvokeServer()
-	wait(2);
+	print(massupgradecheck);
+	wait(1);
     end;
 end)
 
