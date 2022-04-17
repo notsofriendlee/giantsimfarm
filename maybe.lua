@@ -105,30 +105,27 @@ getgenv().mainLoop = stepped:Connect(function()
     if orbfarmcheck then
         local node = getANode();
         if node then
-            tween(character.HumanoidRootPart, client:DistanceFromCharacter(node.Position) / 1000, { CFrame = node.CFrame + Vector3.new(math.random(2, 5), 1, 0) }, Enum.EasingStyle.Linear);
+            tween(character.HumanoidRootPart, client:DistanceFromCharacter(node.Position) / 100000, { CFrame = node.CFrame + Vector3.new(math.random(2, 5), 1, 0) }, Enum.EasingStyle.Linear);
         end;
     end;
 end)
-
-
 
 farmingtab:Toggle("(Rebirths) Mass Upgrade",function(value)
 	getgenv().massupgradecheck = value;
 end)
 
-pcall(function() 
-    if getgenv().mainLoop then
-        getgenv().mainLoop:Disconnect();
-    end;
-end);
 getgenv().mainLoop = stepped:Connect(function()
-    if massupgradecheck == false then return end;
-    if massupgradecheck == true then
+    if not massupgradecheck then return end;
+    if massupgradecheck then
         game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.GameService.MassUpgradeSkills:InvokeServer()
-	print(massupgradecheck);
 	wait(1);
     end;
 end)
+
+
+
+--helps with repeating methods for toggles and other stuff (makes a loop)
+
+
 --end of orb autofarm
 farmingtab:DestroyGui()
-
