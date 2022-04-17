@@ -226,17 +226,19 @@ getgenv().mainLoop = stepped:Connect(function()
 end)
 
 farmingtab:Toggle("Auto Quest",function(value)
-	getgenv().autoquestcheck = value;
+    getgenv().autoquestcheck = value;
 end)
 
+pcall(function() 
+    if getgenv().mainLoop then
+        getgenv().mainLoop:Disconnect();
+    end;
+end);
 getgenv().mainLoop = stepped:Connect(function()
-    if autoquestcheck == true then
+    while autoquestcheck == true do
         game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.GameService.StartQuestRequest:InvokeServer();
-        wait(2); 
+        wait(1.5);
         game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.GameService.EndQuestRequest:InvokeServer();
-        wait(2);
     end;
 end)
 
---closes the gui
-farmingtab:DestroyGui()
