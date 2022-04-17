@@ -92,9 +92,6 @@ end)
 
 
 
---calls the autoswing method when autoswing is enabled
-
-
 --orb autofarm start here
 farmingtab:Toggle("Orb Farm",function(value)
  getgenv().orbfarmcheck = value;
@@ -131,27 +128,6 @@ getgenv().mainLoop = stepped:Connect(function()
 	print(massupgradecheck);
 	wait(1);
     end;
-end)
-
-
-farmingtab:Toggle("Orb Farm 2", function(value)
-	getgenv().orbfarmtwocheck = value;	
-end)
-
-local root = game.Players.LocalPlayer.Character.HumanoidRootPart
-
-spawn(function()
-    while wait() do
-	if not getgenv().orbfarmtwocheck then break end
-        for i, v, in pairs(game:GetService("Workspace").Scene.150012517:GetDescendants()) do
-            if v.name == "TouchInterest" and v.parent then
-                firetouchinterest(root, v.Parent, 0)
-                wait(0.1);
-                firetouchinterest(root, v.Parent, 1)
-                break;
-            end
-        end
-    end 
 end)
 
 
