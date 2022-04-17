@@ -13,12 +13,21 @@ local runService = s.RunService;
 local stepped = runService.Stepped;
 
 
-local window = library:CreateWindow("Giant Simulator") -- Creates the main window of the script
+local window = library:CreateWindow("Giant Simulator V2") -- Creates the main window of the script
  
 
-local farmingtab = window:CreateFolder("Main")
+local farmingtab = window:CreateFolder("Auto Farm")
 
 local client = players.LocalPlayer;
+
+_G.MainColor = Color3.fromRGB(27, 27, 27)
+_G.SecondaryColor = Color3.fromRGB(27, 27, 27)
+_G.TertiaryColor = Color3.fromRGB(27, 27, 27)
+_G.SliderColor = Color3.fromRGB(27, 27, 27)
+_G.PointerColor = Color3.fromRGB(43, 115, 240)
+_G.ArrowColor = Color3.fromRGB(43, 115, 240)
+_G.ButtonColor = Color3.fromRGB(27, 27, 27)
+_G.ToggleColor = Color3.fromRGB(43, 115, 240)
 
 local character = client.Character or client.CharacterAdded:Wait();
 client.CharacterAdded:Connect(function(char)
@@ -110,22 +119,112 @@ getgenv().mainLoop = stepped:Connect(function()
     end;
 end)
 
+farmingtab:Toggle("Orb Farm2", function(value)
+    getgenv().orbfarm2check = value;
+end)
+
+local plyr = game.Players.LocalPlayer
+
+
+getgenv().mainLoop = stepped:Connect(function()
+    if not orbfarm2check then return end;
+    if orbfarm2check then
+        local node = getANode();
+        if node then
+            if node.CFrame then
+                character.HumanoidRootPart.CFrame = node.CFrame
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+            end;
+        end;
+    end;
+end)
+
+farmingtab:Toggle("Candy Box Farm", function(value)
+    getgenv().candyboxcheck = value;
+end)
+
+getgenv().mainLoop = stepped:Connect(function()
+    if plyr.Character and gnomecheck == true then
+        if game:GetService("Workspace").Ephemeral.CandyBox.CandyBox then
+        plyr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Ephemeral.CandyBox.CandyBox.Base.CFrame
+        end
+    end
+end)
+
+
+
+farmingtab:Label("Boss Farms",{
+    TextSize = 20; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(27, 27, 27); -- Self Explaining
+    
+})
+
+farmingtab:Toggle("Slum Boss", function(value)
+    getgenv().slumbossfarmcheck = value;
+end)
+
+getgenv().mainLoop = stepped:Connect(function()
+    if plyr.Character and slumbossfarmcheck == true then
+        if game:GetService("Workspace").NPC.SlumBoss.SlumBoss.HumanoidRootPart then
+        plyr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").NPC.SlumBoss.SlumBoss.HumanoidRootPart.CFrame;
+        end
+    end
+end)
+
+farmingtab:Toggle("Borock Boss", function(value)
+    getgenv().borockbossfarmcheck = value;
+end)
+
+getgenv().mainLoop = stepped:Connect(function()
+    if plyr.Character and borockbossfarmcheck == true then
+        if game:GetService("Workspace").NPC.Boss.Borock.HumanoidRootPart then
+        plyr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").NPC.Boss.Borock.HumanoidRootPart.CFrame;
+        end
+    end
+end)
+
+farmingtab:Toggle("DemonKing Boss", function(value)
+    getgenv().demonkingbosscheck = value;
+end)
+
+getgenv().mainLoop = stepped:Connect(function()
+    if plyr.Character and demonkingbosscheck == true then
+        if game:GetService("Workspace").NPC.DemonKing.DemonKing.HumanoidRootPart then
+        plyr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").NPC.DemonKing.DemonKing.HumanoidRootPart.CFrame;
+        end
+    end
+end)
+
+farmingtab:Toggle("Gnome Boss", function(value)
+    getgenv().gnomecheck = value;
+end)
+
+getgenv().mainLoop = stepped:Connect(function()
+    if plyr.Character and gnomecheck == true then
+        if game:GetService("Workspace").NPC.Gnomes.Gnome.HumanoidRootPart then
+        plyr.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").NPC.Gnomes.Gnome.HumanoidRootPart.CFrame;
+        end
+    end
+end)
+
+farmingtab:Label("Misc",{
+    TextSize = 20; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(27, 27, 27); -- Self Explaining
+})
+
 farmingtab:Toggle("(Rebirths) Mass Upgrade",function(value)
 	getgenv().massupgradecheck = value;
 end)
 
 getgenv().mainLoop = stepped:Connect(function()
-    if not massupgradecheck then return end;
-    if massupgradecheck then
+    if massupgradecheck == true then
         game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.GameService.MassUpgradeSkills:InvokeServer()
-	wait(1);
+	    wait(2);
     end;
 end)
 
 
-
---helps with repeating methods for toggles and other stuff (makes a loop)
-
-
---end of orb autofarm
+--closes the gui
 farmingtab:DestroyGui()
