@@ -92,25 +92,25 @@ end)
 
 
 
+--calls the autoswing method when autoswing is enabled
+
+
 --orb autofarm start here
 farmingtab:Toggle("Orb Farm",function(value)
  getgenv().orbfarmcheck = value;
 end)
 
-pcall(function() 
-    if getgenv().mainLoop then
-        getgenv().mainLoop:Disconnect();
-    end;
-end);
 getgenv().mainLoop = stepped:Connect(function()
     if not orbfarmcheck then return end;
     if orbfarmcheck then
         local node = getANode();
         if node then
-            tween(character.HumanoidRootPart, client:DistanceFromCharacter(node.Position) / 100000, { CFrame = node.CFrame + Vector3.new(math.random(2, 5), 1, 0) }, Enum.EasingStyle.Linear);
+            tween(character.HumanoidRootPart, client:DistanceFromCharacter(node.Position) / 1000, { CFrame = node.CFrame + Vector3.new(math.random(2, 5), 1, 0) }, Enum.EasingStyle.Linear);
         end;
     end;
 end)
+
+
 
 farmingtab:Toggle("(Rebirths) Mass Upgrade",function(value)
 	getgenv().massupgradecheck = value;
@@ -129,7 +129,6 @@ getgenv().mainLoop = stepped:Connect(function()
 	wait(1);
     end;
 end)
-
-
 --end of orb autofarm
 farmingtab:DestroyGui()
+
