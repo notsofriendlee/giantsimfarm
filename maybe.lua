@@ -100,6 +100,11 @@ farmingtab:Toggle("Orb Farm",function(value)
  getgenv().orbfarmcheck = value;
 end)
 
+pcall(function() 
+    if getgenv().mainLoop then
+        getgenv().mainLoop:Disconnect();
+    end;
+end);
 getgenv().mainLoop = stepped:Connect(function()
     if not orbfarmcheck then return end;
     if orbfarmcheck then
@@ -114,11 +119,16 @@ farmingtab:Toggle("(Rebirths) Mass Upgrade",function(value)
 	getgenv().massupgradecheck = value;
 end)
 
+pcall(function() 
+    if getgenv().mainLoop then
+        getgenv().mainLoop:Disconnect();
+    end;
+end);
 getgenv().mainLoop = stepped:Connect(function()
-    if not massupgradecheck then return end;
-    if massupgradecheck then
+    if massupgradecheck == false then return end;
+    if massupgradecheck == true then
         game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.GameService.MassUpgradeSkills:InvokeServer()
-	wait(1);
+	wait(2);
     end;
 end)
 
