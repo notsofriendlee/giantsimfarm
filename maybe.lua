@@ -110,6 +110,12 @@ getgenv().mainLoop = stepped:Connect(function()
     end;
 end)
 
+farmingtab:Toggle("Mass Upgrade (REBIRTHS)", function(value)
+	while value do 
+		game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.GameService.MassUpgradeSkills:InvokeServer();
+		wait(0.1);
+	end;
+end)
 
 --helps with repeating methods for toggles and other stuff (makes a loop)
 
